@@ -1,4 +1,7 @@
-package com.intellij.updater;
+package com.intellij.updater.patch.action;
+
+import com.intellij.updater.Utils;
+import com.intellij.updater.patch.ValidationResult;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -24,11 +27,11 @@ public class DeleteAction extends PatchAction {
   protected ValidationResult doValidate(File toFile) throws IOException {
     ValidationResult result = doValidateAccess(toFile, ValidationResult.Action.DELETE);
     if (result != null) return result;
-    
+
     if (toFile.exists() && isModified(toFile)) {
       return new ValidationResult(ValidationResult.Kind.CONFLICT,
                                   myPath,
-                                  ValidationResult.Action.DELETE, 
+                                  ValidationResult.Action.DELETE,
                                   "Modified",
                                   ValidationResult.Option.DELETE,
                                   ValidationResult.Option.KEEP);

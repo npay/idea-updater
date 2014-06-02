@@ -1,5 +1,11 @@
 package com.intellij.updater;
 
+import com.intellij.updater.patch.OperationCancelledException;
+import com.intellij.updater.patch.PatchFileCreator;
+import com.intellij.updater.patch.ValidationResult;
+import com.intellij.updater.ui.ConsoleUpdaterUI;
+import com.intellij.updater.ui.SwingUpdaterUI;
+import com.intellij.updater.ui.UpdaterUI;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -142,12 +148,12 @@ public class Runner {
     try {
       File tempPatchFile = Utils.createTempFile();
       PatchFileCreator.create(new File(oldFolder),
-                              new File(newFolder),
-                              tempPatchFile,
-                              ignoredFiles,
-                              criticalFiles,
-                              optionalFiles,
-                              ui);
+              new File(newFolder),
+              tempPatchFile,
+              ignoredFiles,
+              criticalFiles,
+              optionalFiles,
+              ui);
 
       logger.info("Packing jar file: " + patchFile );
       ui.startProcess("Packing jar file '" + patchFile + "'...");

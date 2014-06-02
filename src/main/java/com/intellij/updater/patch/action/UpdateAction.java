@@ -1,4 +1,6 @@
-package com.intellij.updater;
+package com.intellij.updater.patch.action;
+
+import com.intellij.updater.Utils;
 
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;

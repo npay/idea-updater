@@ -1,5 +1,8 @@
-package com.intellij.updater;
+package com.intellij.updater.patch.action;
 
+import com.intellij.updater.Runner;
+import com.intellij.updater.Utils;
+import com.intellij.updater.patch.ValidationResult;
 import ie.wombat.jbdiff.JBDiff;
 import ie.wombat.jbdiff.JBPatch;
 

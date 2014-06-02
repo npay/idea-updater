@@ -1,4 +1,7 @@
-package com.intellij.updater;
+package com.intellij.updater.ui;
+
+import com.intellij.updater.patch.OperationCancelledException;
+import com.intellij.updater.patch.ValidationResult;
 
 import java.util.List;
 import java.util.Map;

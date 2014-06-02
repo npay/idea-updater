@@ -1,6 +1,10 @@
-package com.intellij.updater;
+package com.intellij.updater.patch;
 
 import com.intellij.openapi.util.io.FileUtil;
+import com.intellij.updater.Runner;
+import com.intellij.updater.Utils;
+import com.intellij.updater.ui.ConsoleUpdaterUI;
+import com.intellij.updater.ui.UpdaterUI;
 import org.junit.After;
 import org.junit.Before;
 

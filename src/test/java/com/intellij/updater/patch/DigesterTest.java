@@ -1,5 +1,6 @@
-package com.intellij.updater;
+package com.intellij.updater.patch;
 
+import com.intellij.updater.Runner;
 import org.junit.Test;
 
 import java.util.Collections;

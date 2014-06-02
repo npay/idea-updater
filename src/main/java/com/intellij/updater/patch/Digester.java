@@ -1,4 +1,9 @@
-package com.intellij.updater;
+package com.intellij.updater.patch;
+
+import com.intellij.updater.Runner;
+import com.intellij.updater.Utils;
+import com.intellij.updater.patch.OperationCancelledException;
+import com.intellij.updater.ui.UpdaterUI;
 
 import java.io.BufferedInputStream;
 import java.io.File;

@@ -1,4 +1,4 @@
-package com.intellij.updater;
+package com.intellij.updater.patch;
 
 public class OperationCancelledException extends Exception {
 }

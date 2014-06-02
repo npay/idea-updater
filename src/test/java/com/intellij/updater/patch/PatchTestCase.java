@@ -1,4 +1,4 @@
-package com.intellij.updater;
+package com.intellij.updater.patch;
 
 import com.intellij.openapi.util.io.FileUtil;
 

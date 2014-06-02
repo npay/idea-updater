@@ -1,5 +1,6 @@
 package com.intellij.updater;
 
+import com.intellij.updater.patch.UpdaterTestCase;
 import org.junit.Test;
 
 import java.util.Arrays;

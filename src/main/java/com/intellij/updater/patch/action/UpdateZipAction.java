@@ -1,4 +1,10 @@
-package com.intellij.updater;
+package com.intellij.updater.patch.action;
+
+import com.intellij.updater.patch.DiffCalculator;
+import com.intellij.updater.patch.Digester;
+import com.intellij.updater.Runner;
+import com.intellij.updater.Utils;
+import com.intellij.updater.ZipOutputWrapper;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;

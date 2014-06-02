@@ -1,6 +1,7 @@
-package com.intellij.updater;
+package com.intellij.updater.patch;
 
 import com.intellij.openapi.util.io.FileUtil;
+import com.intellij.updater.patch.action.PatchAction;
 import org.junit.Before;
 import org.junit.Test;
 

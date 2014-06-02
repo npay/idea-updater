@@ -1,4 +1,9 @@
-package com.intellij.updater;
+package com.intellij.updater.patch;
+
+import com.intellij.updater.Runner;
+import com.intellij.updater.Utils;
+import com.intellij.updater.patch.action.PatchAction;
+import com.intellij.updater.ui.UpdaterUI;
 
 import java.io.File;
 import java.io.FileOutputStream;

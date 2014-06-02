@@ -1,4 +1,13 @@
-package com.intellij.updater;
+package com.intellij.updater.patch;
+
+import com.intellij.updater.patch.action.CreateAction;
+import com.intellij.updater.patch.action.DeleteAction;
+import com.intellij.updater.patch.action.PatchAction;
+import com.intellij.updater.Runner;
+import com.intellij.updater.patch.action.UpdateAction;
+import com.intellij.updater.patch.action.UpdateZipAction;
+import com.intellij.updater.Utils;
+import com.intellij.updater.ui.UpdaterUI;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

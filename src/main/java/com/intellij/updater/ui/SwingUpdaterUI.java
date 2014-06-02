@@ -1,4 +1,8 @@
-package com.intellij.updater;
+package com.intellij.updater.ui;
+
+import com.intellij.updater.patch.OperationCancelledException;
+import com.intellij.updater.Runner;
+import com.intellij.updater.patch.ValidationResult;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
