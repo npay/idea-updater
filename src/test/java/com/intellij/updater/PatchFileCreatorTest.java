@@ -187,7 +187,7 @@ public class PatchFileCreatorTest extends PatchTestCase {
   @Test
   public void testCreatingAndApplyingWhenFileBecomesDirectory() throws Exception {
     File file = new File(myOlderDir, "bin");
-    assertTrue(FileUtil.delete(file));
+    FileUtil.deleteDir(file.toPath());
     file.createNewFile();
 
     FileUtil.copy(new File(myOlderDir, "lib/boot_with_directory_becomes_file.jar"),

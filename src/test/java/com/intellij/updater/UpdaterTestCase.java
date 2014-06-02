@@ -1,13 +1,12 @@
 package com.intellij.updater;
 
-import com.intellij.openapi.application.ex.PathManagerEx;
 import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.testFramework.fixtures.IdeaTestFixtureFactory;
-import com.intellij.testFramework.fixtures.TempDirTestFixture;
 import org.junit.After;
 import org.junit.Before;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public abstract class UpdaterTestCase {
   protected static final UpdaterUI TEST_UI = new ConsoleUpdaterUI(){
@@ -21,15 +20,16 @@ public abstract class UpdaterTestCase {
   };
 
   protected CheckSums CHECKSUMS;
-  private TempDirTestFixture myTempDirFixture;
+  private Path myTempDirFixture;
 
   @Before
   public void setUp() throws Exception {
     Runner.initLogger();
-    myTempDirFixture = IdeaTestFixtureFactory.getFixtureFactory().createTempDirTestFixture();
-    myTempDirFixture.setUp();
+    myTempDirFixture = Files.createTempDirectory("ideaTest");
 
-    FileUtil.copyDir(PathManagerEx.findFileUnderCommunityHome("updater/testData"), getDataDir());
+    String readmeFileName = getClass().getResource("/testData/Readme.txt").getFile();
+    File testDataFile = new File(readmeFileName).getParentFile();
+    FileUtil.copyDir(testDataFile, getDataDir());
 
     boolean windowsLineEnds = new File(getDataDir(), "Readme.txt").length() == 7132;
     CHECKSUMS = new CheckSums(windowsLineEnds);
@@ -37,8 +37,8 @@ public abstract class UpdaterTestCase {
 
   @After
   public void tearDown() throws Exception {
-    myTempDirFixture.tearDown();
     Utils.cleanup();
+    FileUtil.deleteDir(myTempDirFixture);
   }
 
   public File getDataDir() {
@@ -46,7 +46,7 @@ public abstract class UpdaterTestCase {
   }
 
   public File getTempFile(String fileName) {
-    return new File(myTempDirFixture.getTempDirPath(), fileName);
+    return new File(myTempDirFixture.toFile(), fileName);
   }
 
   protected static class CheckSums {
