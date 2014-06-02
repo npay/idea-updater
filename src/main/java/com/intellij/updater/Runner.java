@@ -1,5 +1,7 @@
 package com.intellij.updater;
 
+import com.intellij.updater.log.AbstractLogger;
+import com.intellij.updater.log.Log4JLogger;
 import com.intellij.updater.patch.OperationCancelledException;
 import com.intellij.updater.patch.PatchFileCreator;
 import com.intellij.updater.patch.ValidationResult;
@@ -33,7 +35,7 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 public class Runner {
-    public static Logger logger = null;
+    public static AbstractLogger logger = null;
 
     private static final String PATCH_FILE_NAME = "patch-file.zip";
     private static final String PATCH_PROPERTIES_ENTRY = "patch.properties";
@@ -56,7 +58,7 @@ public class Runner {
         } else if (args.length >= 2 && "install".equals(args[0])) {
             String destFolder = args[1];
             initLogger();
-            logger.info("destFolder: " + destFolder);
+            logger.info("destFolder: {0}", destFolder);
 
             install(destFolder);
         } else {
@@ -99,11 +101,12 @@ public class Runner {
             updateError.setAppend(false);
             updateError.activateOptions();
 
-            logger = Logger.getLogger("com.intellij.updater");
-            logger.addAppender(updateError);
-            logger.addAppender(update);
-            logger.setLevel(Level.ALL);
+            Logger log4jLogger = Logger.getLogger("com.intellij.updater");
+            log4jLogger.addAppender(updateError);
+            log4jLogger.addAppender(update);
+            log4jLogger.setLevel(Level.ALL);
 
+            logger = new Log4JLogger(log4jLogger);
             logger.info("--- Updater started ---");
         }
     }
@@ -153,7 +156,7 @@ public class Runner {
                     optionalFiles,
                     ui);
 
-            logger.info("Packing jar file: " + patchFile);
+            logger.info("Packing jar file: {0}", patchFile);
             ui.startProcess("Packing jar file '" + patchFile + "'...");
 
             FileOutputStream fileOut = new FileOutputStream(patchFile);
@@ -224,7 +227,7 @@ public class Runner {
                 props.getProperty(NEW_BUILD_DESCRIPTION),
                 new SwingUpdaterUI.InstallOperation() {
                     public boolean execute(UpdaterUI ui) throws OperationCancelledException {
-                        logger.info("installing patch to the " + destFolder);
+                        logger.info("installing patch to the {0}", destFolder);
                         return doInstall(ui, destFolder);
                     }
                 });

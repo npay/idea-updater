@@ -14,7 +14,7 @@ public class ConsoleUpdaterUI implements UpdaterUI {
 
     public void startProcess(String title) {
         System.out.println(title);
-        Runner.logger.info("title: " + title);
+        Runner.logger.info("title: {0}", title);
     }
 
     public void setProgress(int percentage) {
@@ -25,7 +25,7 @@ public class ConsoleUpdaterUI implements UpdaterUI {
 
     public void setStatus(String status) {
         System.out.println(myStatus = status);
-        Runner.logger.info("status: " + status);
+        Runner.logger.info("status: {0}", status);
     }
 
     public void showError(Throwable e) {
