@@ -3,7 +3,6 @@ package com.intellij.openapi.util.io;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.CopyOption;
 import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -24,7 +23,7 @@ public class FileUtil {
         try {
             Files.delete(file.toPath());
             return true;
-        } catch (NoSuchFileException|DirectoryNotEmptyException e) {
+        } catch (NoSuchFileException | DirectoryNotEmptyException e) {
             return false;
         }
     }
