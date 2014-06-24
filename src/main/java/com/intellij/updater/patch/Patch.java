@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.zip.ZipFile;
 
 public class Patch {
-    private List<PatchAction> myActions = new ArrayList<PatchAction>();
+    private List<PatchAction> myActions = new ArrayList<>();
 
     private static final int CREATE_ACTION_KEY = 1;
     private static final int UPDATE_ACTION_KEY = 2;
@@ -59,7 +59,7 @@ public class Patch {
         diff = DiffCalculator.calculate(Digester.digestFiles(olderDir, ignoredFiles, ui),
                 Digester.digestFiles(newerDir, ignoredFiles, ui));
 
-        List<PatchAction> tempActions = new ArrayList<PatchAction>();
+        List<PatchAction> tempActions = new ArrayList<>();
 
         // 'delete' actions before 'create' actions to prevent newly created files to be deleted if the names differ only on case.
         for (Map.Entry<String, Long> each : diff.filesToDelete.entrySet()) {
@@ -126,7 +126,7 @@ public class Patch {
     }
 
     private void read(InputStream patchIn) throws IOException {
-        List<PatchAction> newActions = new ArrayList<PatchAction>();
+        List<PatchAction> newActions = new ArrayList<>();
 
         @SuppressWarnings("IOResourceOpenedButNotSafelyClosed") DataInputStream in = new DataInputStream(patchIn);
         int size = in.readInt();
@@ -158,7 +158,7 @@ public class Patch {
 
     public List<ValidationResult> validate(final File toDir, UpdaterUI ui) throws IOException, OperationCancelledException {
         final LinkedHashSet<String> files = Utils.collectRelativePaths(toDir);
-        final List<ValidationResult> result = new ArrayList<ValidationResult>();
+        final List<ValidationResult> result = new ArrayList<>();
 
         Runner.logger.info("Validating installation...");
         forEach(myActions, "Validating installation...", ui, true,
@@ -187,7 +187,7 @@ public class Patch {
                                    final Map<String, ValidationResult.Option> options,
                                    UpdaterUI ui) throws IOException, OperationCancelledException {
 
-        List<PatchAction> actionsToProcess = new ArrayList<PatchAction>();
+        List<PatchAction> actionsToProcess = new ArrayList<>();
         for (PatchAction each : myActions) {
             if (each.shouldApply(toDir, options)) actionsToProcess.add(each);
         }
@@ -199,7 +199,7 @@ public class Patch {
                     }
                 });
 
-        final List<PatchAction> appliedActions = new ArrayList<PatchAction>();
+        final List<PatchAction> appliedActions = new ArrayList<>();
         boolean shouldRevert = false;
         boolean cancelled = false;
         try {

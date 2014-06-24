@@ -31,8 +31,7 @@ public class PatchFileCreator {
         ui.startProcess("Creating the patch file '" + patchFile + "'...");
         ui.checkCancelled();
 
-        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(patchFile));
-        try {
+        try (ZipOutputStream out = new ZipOutputStream(new FileOutputStream(patchFile))) {
             out.setLevel(9);
 
             out.putNextEntry(new ZipEntry(PATCH_INFO_FILE_NAME));
@@ -47,8 +46,6 @@ public class PatchFileCreator {
                 ui.checkCancelled();
                 each.buildPatchFile(olderDir, newerDir, out);
             }
-        } finally {
-            out.close();
         }
     }
 
@@ -57,16 +54,9 @@ public class PatchFileCreator {
                                                        UpdaterUI ui) throws IOException, OperationCancelledException {
         Patch patch;
 
-        ZipFile zipFile = new ZipFile(patchFile);
-        try {
-            InputStream in = Utils.getEntryInputStream(zipFile, PATCH_INFO_FILE_NAME);
-            try {
-                patch = new Patch(in);
-            } finally {
-                in.close();
-            }
-        } finally {
-            zipFile.close();
+        try (ZipFile zipFile = new ZipFile(patchFile);
+             InputStream in = Utils.getEntryInputStream(zipFile, PATCH_INFO_FILE_NAME)) {
+            patch = new Patch(in);
         }
 
         List<ValidationResult> validationResults = patch.validate(toDir, ui);
@@ -83,11 +73,8 @@ public class PatchFileCreator {
                                                 Map<String, ValidationResult.Option> options,
                                                 File backupDir,
                                                 UpdaterUI ui) throws IOException, OperationCancelledException {
-        ZipFile zipFile = new ZipFile(preparationResult.patchFile);
-        try {
+        try (ZipFile zipFile = new ZipFile(preparationResult.patchFile)) {
             return preparationResult.patch.apply(zipFile, preparationResult.toDir, backupDir, options, ui);
-        } finally {
-            zipFile.close();
         }
     }
 
@@ -95,11 +82,8 @@ public class PatchFileCreator {
                               List<PatchAction> actionsToRevert,
                               File backupDir,
                               UpdaterUI ui) throws IOException, OperationCancelledException {
-        ZipFile zipFile = new ZipFile(preparationResult.patchFile);
-        try {
+        try (ZipFile zipFile = new ZipFile(preparationResult.patchFile)) {
             preparationResult.patch.revert(actionsToRevert, backupDir, preparationResult.toDir, ui);
-        } finally {
-            zipFile.close();
         }
     }
 
